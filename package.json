@@ -1,0 +1,42 @@
+{
+  "name": "webgl-grid",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Disorrder",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.com:disorrder/subday.git"
+  },
+  "scripts": {
+    "api": "nodemon api --watch api",
+    "dev": "webpack-dev-server --progress --config build/webpack.config.js",
+    "build": "webpack --config build/webpack.config.js --mode production",
+    "build-dev": "webpack --config build/webpack.config.js --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.0",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "nib": "^1.1.2",
+    "pug": "^2.0.4",
+    "pug-loader": "^2.4.0",
+    "script-loader": "^0.7.2",
+    "style-loader": "^1.1.2",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-glsl-loader": "^1.0.1",
+    "webpack-notifier": "^1.8.0"
+  },
+  "dependencies": {
+    "events": "^3.0.0",
+    "three": "^0.112.1"
+  }
+}

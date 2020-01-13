@@ -1,0 +1,11 @@
+node_modules
+bower_components
+typings
+.build
+.public
+.logs
+src/config.js
+api/config.js
+npm-debug.log
+.DS_Store
+.tmp
