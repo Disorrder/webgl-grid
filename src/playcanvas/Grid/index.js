@@ -6,9 +6,10 @@ export class Grid extends pc.Entity {
         super(...arguments);
         this.addComponent("model", {type: "plane"});
         this.model.material = new GridMaterial();
-        let size = 10;
-        this.model.material.divisions = size*2;
-        this.setLocalScale(size, size, size);
+        // this.model.material.divisions = size*2;
+        let size = this.size = 100;
+        this.setLocalScale(size*2, size*2, size*2);
+        this.dimension = 1; // cell size
         
         let app = this._app;
         this.distanceVec = new pc.Vec3();
@@ -18,13 +19,21 @@ export class Grid extends pc.Entity {
         app.graphicsDevice.on('resizecanvas', this.resize.bind(this));
     }
 
+    get dimension() { return this._dimension; }
+    set dimension(val) { // .1, 1, 10, 100, ...
+        this._dimension = val;
+        this.model.material.divisions = this.size / val;
+    }
+
     update(dt) {
         this.updateMaterial();
     }
     
     updateMaterial() {
         this.distanceVec.sub2(this.camera.getPosition(), this.getPosition());
-        this.model.material.distance = this.distanceVec.length();
+        this.distance = this.distanceVec.length();
+        console.log(this.distance);
+        
     }
 
     resize() {
