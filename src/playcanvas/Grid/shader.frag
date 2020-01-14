@@ -1,9 +1,6 @@
-#version 300 es
 precision highp float;
 
-out vec4 fragmentColor;
-
-in vec2 vUv0;
+varying vec2 vUv0;
 
 uniform float uDivisions;
 
@@ -14,7 +11,8 @@ void main() {
     vec2 line = uv * uDivisions;
     vec2 div = fract(line);
     div = min(div, 1.0 - div);
-    vec2 dt = fwidth(div) * 1.5;
+    // vec2 dt = fwidth(div) * 1.5; // WebGL 2.0+
+    vec2 dt = vec2(0.01);
     div.x = smoothstep(div.x-dt.x, div.x+dt.x, thickness);
     div.y = smoothstep(div.y-dt.y, div.y+dt.y, thickness);
 
@@ -22,13 +20,11 @@ void main() {
     vec3 color = vec3(alpha);
 
     if (alpha == 0.0) {
-        fragmentColor = vec4(0.0);
+        gl_FragColor = vec4(0.0);
         return;
     }
 
     float brightness = 1.0;
-    // float linex = floor(line.x + thickness);
-    // float liney = floor(line.y + thickness);
     if (abs(line.y) < 0.5 && div.y > 0.0) {
         // x axis
         color = vec3(alpha, 0.0, 0.0);
@@ -43,5 +39,5 @@ void main() {
         color *= brightness;
     }
 
-    fragmentColor = vec4(color, alpha*brightness);
+    gl_FragColor = vec4(color, alpha*brightness);
 }
