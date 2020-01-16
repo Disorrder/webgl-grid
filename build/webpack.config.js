@@ -27,7 +27,15 @@ let argvModeIndex = process.argv.findIndex(v => v === "--mode");
 if (~argvModeIndex) {
     mode = process.argv[argvModeIndex + 1];
 }
-console.log("MODE:", mode)
+console.log("MODE:", mode);
+
+let REVISION, BRANCH;
+try {
+    REVISION = require("child_process").execSync('git rev-parse --short HEAD').toString().trim();
+    BRANCH = require("child_process").execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+} catch(e) {
+    console.error(e);
+}
 
 module.exports = {
     context: path.resolve(__dirname, cfg.path.src),
@@ -127,8 +135,8 @@ module.exports = {
 
         new webpack.DefinePlugin({
             VERSION: JSON.stringify( require("../package.json").version ),
-            REVISION: JSON.stringify( require("child_process").execSync('git rev-parse --short HEAD').toString().trim() ),
-            BRANCH: JSON.stringify( require("child_process").execSync('git rev-parse --abbrev-ref HEAD').toString().trim() ),
+            REVISION: JSON.stringify( REVISION ),
+            BRANCH: JSON.stringify( BRANCH ),
             BUILD_DATE: JSON.stringify( new Date().toJSON() ),
         }),
     ]
