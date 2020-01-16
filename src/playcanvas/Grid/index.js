@@ -23,6 +23,7 @@ export class GridMaterial extends pc.Material {
         this.blend = true;
         this.blendSrc = pc.gfx.BLENDMODE_SRC_ALPHA;
         this.blendDst = pc.gfx.BLENDMODE_ONE_MINUS_SRC_ALPHA;
+        this.cull = pc.CULLFACE_NONE;
     }
     
     updateShader(device) {
