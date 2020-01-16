@@ -1,6 +1,5 @@
 precision highp float;
 
-varying vec2 vUv0;
 varying vec2 vUv1; // real coord
 varying float distToCamera;
 
@@ -39,16 +38,12 @@ void main() {
     // dimension = pow(10., dimension);
     // dimMorph = smoothstep(dimension*100., dimension*80., distToCamera);
 
+    float dimMorph2 = smoothstep(0., 0.5, dimMorph); // анимация для жирных линий
 
-    float dimMorph2 = smoothstep(0., 0.5, dimMorph);
-
-
-    // vec2 uv = vUv0 * 2. - 1.; // Scale [-1, 1]
     vec2 cell = vUv1 / dimension; // cell UV
     vec2 line = ceil(cell - .5);
     vec2 div = mod(vUv1, dimension); // line smoothness alpha
     div = min(div, dimension - div);
-    // if (dimension < 1.0) div *= dimension;
 
     // vec2 dt = fwidth(div) * 1.5; // WebGL 2.0+
     vec2 dt = vec2(0.00);
@@ -58,12 +53,9 @@ void main() {
 
 
     float alpha = max(div.x, div.y);
-    // float alpha = clamp(div.x + div.y, 0., 1.);
 
     if (alpha <= 0.) {
         gl_FragColor = COLOR_0;
-        // gl_FragColor = vec4(div, 0., 0.99);
-        // gl_FragColor = vec4(dimMorph, dimMorph2, 0., 0.1);
         return;
     }
 
@@ -93,5 +85,4 @@ void main() {
     }
 
     gl_FragColor = max(colorX, colorY);
-
 }

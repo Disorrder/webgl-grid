@@ -26,15 +26,9 @@ camera.addComponent('camera', {
 camera.setPosition(0, 2, 3);
 camera.lookAt(app.root.getPosition());
 camera.addComponent("script");
-camera.script.create("orbitCamera", {
-
-});
-camera.script.create("mouseInput", {
-
-});
-camera.script.create("touchInput", {
-
-});
+camera.script.create("orbitCamera", {});
+camera.script.create("mouseInput", {});
+camera.script.create("touchInput", {});
 app.root.addChild(camera);
 
 let light = new pc.Entity('light');
@@ -48,6 +42,3 @@ app.root.addChild(cube);
 
 let grid = new Grid("Grid");
 app.root.addChild(grid);
-
-console.log(grid);
-

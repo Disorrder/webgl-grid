@@ -6,21 +6,13 @@ export class Grid extends pc.Entity {
         super(...arguments);
         this.addComponent("model", {type: "plane"});
         this.model.material = new GridMaterial();
-        // this.model.material.divisions = size*2;
         let size = this.size = 100;
         this.setLocalScale(size*2, size*2, size*2);
-        // this.dimension = .1; // cell size
         
         let app = this._app;
         this.distanceVec = new pc.Vec3();
         this.camera = app.root.findByName("Camera");
     }
-
-    // get dimension() { return this._dimension; }
-    // set dimension(val) { // .1, 1, 10, 100, ...
-    //     this._dimension = val;
-    //     this.model.material.divisions = this.size / val;
-    // }
 }
 
 
@@ -31,20 +23,11 @@ export class GridMaterial extends pc.Material {
         this.blend = true;
         this.blendSrc = pc.gfx.BLENDMODE_SRC_ALPHA;
         this.blendDst = pc.gfx.BLENDMODE_ONE_MINUS_SRC_ALPHA;
-
-        // this.divisions = 10;
-        this.color = new pc.Color(1, 0, 0, 0.3);
     }
     
     updateShader(device) {
         let shader = this.constructor.createShader(device);
         this.setShader(shader);
-    }
-
-    updateUniforms() {
-        this.clearParameters();
-        // this.setParameter("uDivisions", this.divisions);
-        this.setParameter("uColor", this.color.data);
     }
 
 
