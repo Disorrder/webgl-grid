@@ -9,39 +9,18 @@ export class Grid extends pc.Entity {
         // this.model.material.divisions = size*2;
         let size = this.size = 100;
         this.setLocalScale(size*2, size*2, size*2);
-        this.dimension = 1; // cell size
+        // this.dimension = .1; // cell size
         
         let app = this._app;
         this.distanceVec = new pc.Vec3();
         this.camera = app.root.findByName("Camera");
-
-        app.on("update", this.update.bind(this));
-        app.graphicsDevice.on('resizecanvas', this.resize.bind(this));
     }
 
-    get dimension() { return this._dimension; }
-    set dimension(val) { // .1, 1, 10, 100, ...
-        this._dimension = val;
-        this.model.material.divisions = this.size / val;
-    }
-
-    update(dt) {
-        this.updateMaterial();
-    }
-    
-    updateMaterial() {
-        this.distanceVec.sub2(this.camera.getPosition(), this.getPosition());
-        this.distance = this.distanceVec.length();
-        console.log(this.distance);
-        
-    }
-
-    resize() {
-        let {width, height} = this._app.graphicsDevice.clientRect;
-        this.model.material.resolution.set(width, height);
-        this.model.material.updateUniforms();
-        console.log(this.model.material.resolution);
-    }
+    // get dimension() { return this._dimension; }
+    // set dimension(val) { // .1, 1, 10, 100, ...
+    //     this._dimension = val;
+    //     this.model.material.divisions = this.size / val;
+    // }
 }
 
 
@@ -53,9 +32,8 @@ export class GridMaterial extends pc.Material {
         this.blendSrc = pc.gfx.BLENDMODE_SRC_ALPHA;
         this.blendDst = pc.gfx.BLENDMODE_ONE_MINUS_SRC_ALPHA;
 
-        this.divisions = 10;
+        // this.divisions = 10;
         this.color = new pc.Color(1, 0, 0, 0.3);
-        this.resolution = new pc.Vec2();
     }
     
     updateShader(device) {
@@ -65,9 +43,8 @@ export class GridMaterial extends pc.Material {
 
     updateUniforms() {
         this.clearParameters();
-        this.setParameter("uDivisions", this.divisions);
+        // this.setParameter("uDivisions", this.divisions);
         this.setParameter("uColor", this.color.data);
-        this.setParameter("resolution", this.resolution.data);        
     }
 
 
