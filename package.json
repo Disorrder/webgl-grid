@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "events": "^3.0.0",
-    "three": "^0.112.1"
+    "three": "^0.125.0"
   }
 }
